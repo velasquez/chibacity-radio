@@ -1,2 +1,2 @@
 # chibacity-radio
-Decentralized music streaming service made with IPFS and ethereum
+Music streaming service made with IPFS/IPLD and Ethereum.

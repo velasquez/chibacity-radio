@@ -1,11 +1,20 @@
 import 'babel-polyfill'
 import ipfsAPI from 'ipfs-api'
 import $ from 'jquery'
+import { ethers } from 'ethers'
 
 var ipfs;
 var playList;
-var playListIPLDHash="zdpuAvCSGPfSNzw1H2JxFLZ6nmc7ioYKz1C7nK8Ws7TCmvhN7";
+var playListIPLDHash;
 var nextTrack = 0;
+
+// Ethereum variables
+var eth_network = 'kovan';
+var contractAddress = "0x3da43A2C62997A1dfa52E268427D1829aECC57cD";
+var abi = [
+  "function playlistHash() view returns(string)"
+]
+
 
 const showTrackInfo = async (musicRecording) => {
   $("#track_name").text(musicRecording.name);
@@ -41,6 +50,14 @@ const getIPLDPlayList = async () => {
   playList = playList.value;
 }
 
+const getPlayListHashFromEthereum = async () => {
+  let provider = ethers.getDefaultProvider(eth_network);
+  let contract = new ethers.Contract(contractAddress, abi, provider);
+  let playlistHash = await contract.playlistHash();
+  console.log(playlistHash);
+  return playlistHash;
+}
+
 const setup = async () => {
   try {
     // setup ipfs
@@ -49,6 +66,9 @@ const setup = async () => {
       port: 5001,
       protocol: 'https'
     });
+    // get playlist IPLD hash from ethereum
+    playListIPLDHash = await getPlayListHashFromEthereum();
+    // get the playlist from IPLD
     await getIPLDPlayList();
     // generate interaction so the music starts
     $("#start_playing").click(() => {
