@@ -18,7 +18,7 @@ var abi = [
 
 const showTrackInfo = async (musicRecording) => {
   $("#track_name").text(musicRecording.name);
-  $("#artist_name").text(" by " + musicRecording.byArtist[0].name);
+  $("#artist_name").text(musicRecording.byArtist[0].name);
   $("#track_image").attr("src", musicRecording.byArtist[0].image[1].contentUrl);
 }
 
@@ -58,6 +58,12 @@ const getPlayListHashFromEthereum = async () => {
   return playlistHash;
 }
 
+const setSiteInfo = () => {
+  $("#ethereum_network").text("Ethereum Network: " + eth_network);
+  $("#ethereum_address").text("Playlist Contract: " + contractAddress);
+  $("#ipld_playlist_hash").text("IPLD Playlist Hash: " + playListIPLDHash);
+}
+
 const setup = async () => {
   try {
     // setup ipfs
@@ -68,13 +74,12 @@ const setup = async () => {
     });
     // get playlist IPLD hash from ethereum
     playListIPLDHash = await getPlayListHashFromEthereum();
+    // set site information
+    setSiteInfo();
     // get the playlist from IPLD
     await getIPLDPlayList();
-    // generate interaction so the music starts
-    $("#start_playing").click(() => {
-      playNextTrack();
-      $("#start_playing").hide();
-    })
+    // load first track
+    playNextTrack();
     // set *onended* event to play the next track
     var audio = document.getElementById("audio");
     audio.onended = () => {

@@ -130004,7 +130004,7 @@ var showTrackInfo = function () {
         switch (_context.prev = _context.next) {
           case 0:
             (0, _jquery2.default)("#track_name").text(musicRecording.name);
-            (0, _jquery2.default)("#artist_name").text(" by " + musicRecording.byArtist[0].name);
+            (0, _jquery2.default)("#artist_name").text(musicRecording.byArtist[0].name);
             (0, _jquery2.default)("#track_image").attr("src", musicRecording.byArtist[0].image[1].contentUrl);
 
           case 3:
@@ -130169,6 +130169,12 @@ var getPlayListHashFromEthereum = function () {
   };
 }();
 
+var setSiteInfo = function setSiteInfo() {
+  (0, _jquery2.default)("#ethereum_network").text("Ethereum Network: " + eth_network);
+  (0, _jquery2.default)("#ethereum_address").text("Playlist Contract: " + contractAddress);
+  (0, _jquery2.default)("#ipld_playlist_hash").text("IPLD Playlist Hash: " + playListIPLDHash);
+};
+
 var setup = function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
     var audio;
@@ -130190,36 +130196,37 @@ var setup = function () {
 
           case 4:
             playListIPLDHash = _context7.sent;
-            _context7.next = 7;
+
+            // set site information
+            setSiteInfo();
+            // get the playlist from IPLD
+            _context7.next = 8;
             return getIPLDPlayList();
 
-          case 7:
-            // generate interaction so the music starts
-            (0, _jquery2.default)("#start_playing").click(function () {
-              playNextTrack();
-              (0, _jquery2.default)("#start_playing").hide();
-            });
+          case 8:
+            // load first track
+            playNextTrack();
             // set *onended* event to play the next track
             audio = document.getElementById("audio");
 
             audio.onended = function () {
               playNextTrack();
             };
-            _context7.next = 15;
+            _context7.next = 16;
             break;
 
-          case 12:
-            _context7.prev = 12;
+          case 13:
+            _context7.prev = 13;
             _context7.t0 = _context7['catch'](0);
 
             console.log(_context7.t0);
 
-          case 15:
+          case 16:
           case 'end':
             return _context7.stop();
         }
       }
-    }, _callee7, undefined, [[0, 12]]);
+    }, _callee7, undefined, [[0, 13]]);
   }));
 
   return function setup() {

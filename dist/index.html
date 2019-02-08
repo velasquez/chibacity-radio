@@ -3,19 +3,59 @@
   <head>
     <meta charset="utf8">
     <title>Chibacity Radio</title>
+    <link rel="stylesheet" href="./style.css">
   </head>
-  <body>
-    <div id="site_title"><h1> ChibaCity Radio </h1></div>
-    <div id="start_playing">
-      <button id="start_button" type="button">click to play</button>
+  <body class="noisy">
+    <div class="frame">
+      <div class="piece output">
+        <div class="emblem"><span class="icon-information"></span></div>
+        <h1> ChibaCity Radio </h1>
+        <div class="playpause" align="center">
+          <input onclick="playpause()" type="checkbox" value="None" id="playpause" name="check" checked />
+          <label for="playpause" tabindex=1></label>
+        </div>
+        <p align="center">// Now Playing:</p>
+        <center>
+          <div class="artist_image artist_info">
+            <img id="track_image"></img>
+          </div>
+          <div class="artist_info">
+            <ul>
+              <li align="left">
+                Artist:&nbsp;<div id="artist_name" class="artist_info"></div>
+              </li>
+              <li align="left">
+                Song:&nbsp;<div id="track_name" class="artist_info"></div>
+              </li>
+            </ul>
+          </div>
+        </center>
+        <br>
+        <div align="center">
+          // Site Info:
+          <ul style="list-style-type:none;">
+            <li><a href="https://github.com/velasquez/chibacity-radio" target="_blank">GitHub</a></li>
+            <li><a href="https://twitter.com/Andr0id0" target="_blank">By @andr0id0</a></li>
+            <li><div id="ethereum_network"></div></li>
+            <li><div id="ethereum_address"></div></li>
+            <li><div id="ipld_playlist_hash"></div></li>
+          </ul>
+        </div>
+        <audio id="audio">
+          <source id="audio_source" src="" type="audio/mpeg">
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
+      <div class="piece scanlines noclick"></div>
+      <div class="piece glow noclick"></div>
     </div>
-    <br>
-    <img id="track_image"></img>
-    <div id="track_name"></div><div id="artist_name"></div>
-    <audio id="audio" controls autoplay ontrolsList=”nodownload”>
-      <source id="audio_source" src="" type="audio/mpeg">
-      Your browser does not support the audio tag.
-    </audio>
     <script src="bundle.js"></script>
+    <script>
+      function playpause() {
+        var audio = document.getElementById("audio");
+        if (document.getElementById("playpause").checked == false) { audio.play(); }
+        else { audio.pause(); }
+      }
+    </script>
   </body>
 </html>
