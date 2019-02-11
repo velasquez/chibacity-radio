@@ -17,7 +17,8 @@
     "watch:web": "nodemon --watch src --ext html,css --exec 'npm-run-all build:copy'",
     "watch:serve": "ecstatic --cache=0 dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "playlist": "node scripts/add_playlist.js"
+    "playlist": "node scripts/add_playlist.js",
+    "pin_on_infura": "node scripts/pin_on_infura.js"
   },
   "browserify": {
     "transform": [
