@@ -24,3 +24,8 @@ At this stage this is a very MVP of how a radio station or streaming service cou
 - Have more sources for the song and MusicRecording objects than just the IPFS infura gateway/RPC for fail over. 
 - ...
 
+### To run local:
+```
+npm build
+npm start
+```
